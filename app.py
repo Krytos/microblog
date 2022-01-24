@@ -5,7 +5,7 @@ from flask import Flask, render_template, request
 
 def create_app():
     app = Flask(__name__)
-    client = MongoClient("mongodb+srv://Krytos:301018905@microblog-app.5h6by.mongodb.net/test")
+    client = MongoClient("mongodb+srv://Krytos:301018905@microblog-app.5h6by.mongodb.net/microblog")
     app.db = client.microblog
     entries = []
 
@@ -41,7 +41,6 @@ def create_app():
              )
             for entry in app.db.entries.find()
         ]
-        return render_template(
-            "html/home.html", date=formatted_date, entries=entries_with_date
-        )
+        return render_template("html/home.html", entries=entries_with_date)
+
     return app
