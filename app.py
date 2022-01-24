@@ -5,7 +5,7 @@ from flask import Flask, render_template, request
 
 def create_app():
     app = Flask(__name__)
-    client = MongoClient("mongodb+srv://Krytos:301018905@microblog-app.5h6by.mongodb.net/microblog")
+    client = MongoClient("mongodb+srv://Krytos:301018905@microblog-app.5h6by.mongodb.net/microblog?retryWrites=true&w=majority")
     app.db = client.microblog
     entries = []
 
