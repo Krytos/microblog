@@ -1,21 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Login Page</title>
-    <link rel="stylesheet" href="/static/css/index.css">
-</head>
-<body>
-    <main class="main">
-        <img class="logo" src="/static/img/logo.png" alt="Logo of Webpage">
-        <h1 class="header1"> Please Login!</h1>
-        <form class="login-form" method="post">
-            <div class="text-input">
-                <input class="username" name="user" type="text" placeholder="Username">
-                <input class="password" name="password" type="password" placeholder="Password">
+{% extends "html/base.html" %}
+<body class="index__body">
+{% block header %}
+{% endblock %}
+{% block main %}
+    <main class="index__main">
+        <img class="index__logo" src="/static/img/logo.png" alt="Logo of Webpage">
+        <h1 class="index__header1"> Please Login!</h1>
+        <form class="index__login-form" method="post">
+            <div class="index__text-input">
+                <input class="index__username" name="user" type="text" placeholder="Username">
+                <input class="index__password" name="password" type="password" placeholder="Password">
             </div>
-            <input class="login-button" type="submit" value="Login!">
+            <input class="index__login-button" type="submit" value="Login!">
         </form>
     </main>
+{% endblock %}
+{% block footer %}
+{% endblock %}
 </body>
 </html>
