@@ -11,7 +11,6 @@ def create_app():
     app = Flask(__name__)
     client = MongoClient(os.environ.get("MONGODB_URI"))
     app.db = client.microblog
-    entries = []
 
     @app.route("/", methods=["GET", "POST"])
     def home():
@@ -41,8 +40,46 @@ def create_app():
              entry["date"],
              datetime.datetime.strptime(entry["date"], "%Y-%m-%d").strftime("%d %b")
              )
-            for entry in app.db[name].find()
+            for entry in app.db[name].find().limit(5)
         ]
-        return render_template("html/home.html", entries=entries_with_date)
+
+        return render_template("html/home.html", entries=entries_with_date, name=name)
+
+    @app.route("/<name>/recent/", methods=["GET"])
+    def recent(name):
+        page = request.args.get("page")
+        if page is not None:
+            page = int(page)
+        else:
+            page = 1
+        print(page)
+        count = app.db[name].count_documents({})
+        page_count = [1]
+        for x in range(count):
+            # print(f"x = {x}")
+            if (x + 1) % 10 == 0:
+                page_count.append((x+1) / 10)
+        entries_with_date = [
+            (entry["content"],
+             entry["date"],
+             datetime.datetime.strptime(entry["date"], "%Y-%m-%d").strftime("%d %b")
+             )
+            for entry in app.db[name].find().skip((page - 1) * 10).limit(10 * page)
+        ]
+        # print(f"count = {count}")
+        print(f"page_count = {page_count}")
+        # print(f"entries_with_date = {entries_with_date}")
+        print(f"page_count = {page_count}")
+        print(len(page_count))
+        return render_template("html/recent.html", entries=entries_with_date, links=len(page_count), name=name, page=page)
+
+    # @app.route("/<name>/recent/<page_count>", metho=["GET"])
+    # def current_page(name, page_count):
+    #     count = app.db[name].count_documents({})
+    #     page_count = 1
+    #     for x in range(count):
+    #         print(f"x = {x}")
+    #         if (x + 1) % 10 == 0:
+    #             page_count = int(((x + 11) / 10))
 
     return app

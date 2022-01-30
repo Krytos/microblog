@@ -14,34 +14,37 @@
             <a href="{{ url_for("user", name=name) }}">Microblog</a>
         </div>
         <ul class="navbar__navigation">
-            <li class="navbar__navigation-item"><a href="{{ url_for("recent", name=name, page_count=1) }}" class="navbar__link">Recent</a></li>
+            <li class="navbar__navigation-item"><a href="{{ url_for("recent", name=name) }}" class="navbar__link">Recent</a></li>
             <li class="navbar__navigation-item"><a href="#" class="navbar__link">Calendar</a></li>
         </ul>
     </header>
     <main class="main">
         <section>
-            <h1>Add new entry</h1>
-            <form class="form" method="post">
-                <p class="form__input">
-                    <label for="entry" class="form__label">Entry Content:</label>
-                    <textarea name="content" id="entry" cols="30" rows="5" class="form__textarea"></textarea>
-                </p>
-                <input type="submit" class="form__submit" value="Add Entry">
-            </form>
-        </section>
-        <section>
             <h1>Recent Posts</h1>
             {% for entry in entries %}
                 <article class="entry">
-                    <div>
+                    <div class="entry__div">
                         <h2 class="entry__title">{{ entry[0] | truncate(30, true) }}</h2>
                         <time class="entry__date" datetime="{{ entry[1] }}">• {{ entry[2] }}</time>
+                        <input type="button" class="entry__delete" value="DELETE?" {{ delete }}>
                     </div>
                     <p class="entry__content">
                         {{ entry[0] }}
                     </p>
                 </article>
             {% endfor %}
+        </section>
+        <section class="page_list">
+            {% if links > 1 %}
+            <ul class="pages">
+                {% for link_item in range(1, links + 1) %}
+                    <li><a class="pages__item-{{ link_item }}" href="{{ url_for("recent", name="krytos", page=link_item) }}">{{ link_item }}</a></li>
+                    {% if link_item != links %}
+                     <span>&ensp;•&ensp;</span>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            {% endif %}
         </section>
     </main>
     <footer class="footer">

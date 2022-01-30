@@ -29,6 +29,15 @@ body {
     align-items: center;
 }
 
+.navbar__brand a{
+    text-decoration: none;
+    color: inherit;
+}
+
+.navbar__brand a:hover{
+    color: #FACB35;
+}
+
 .navbar__navigation {
     display: flex;
     flex-direction: row;
@@ -101,6 +110,9 @@ body {
     margin-top: 50px;
 }
 
+.entry__div{
+    position: relative;
+}
 .entry__title {
     display: inline;
     font-size: 18px;
@@ -108,6 +120,24 @@ body {
 
 .entry__date{
     color: #5c6b70;
+}
+
+.entry__delete{
+    opacity: 0;
+    display: inline;
+    position: absolute;
+    right: 0;
+}
+
+.entry__delete:hover{
+    background-color: red;
+    border-style: none;
+    border-radius: 12px;
+    margin: auto 5px;
+    max-width: 100px;
+    color: white;
+    font-weight: bold;
+    opacity: 100;
 }
 
 .entry__content{
@@ -159,4 +189,26 @@ body {
 
 .footer__item:hover{
     text-decoration: underline;
+}
+
+.page_list{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.pages{
+    display: flex;
+    list-style: none;
+    padding: 0;
+}
+
+.pages a{
+    text-decoration: none;
+    color: #182143;
+}
+
+.pages a:hover{
+    color: #384E9E;
 }
