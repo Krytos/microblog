@@ -7,11 +7,16 @@
         <img class="index__logo" src="/static/img/logo.png" alt="Logo of Webpage">
         <h1 class="index__header1"> Please Login!</h1>
         <form class="index__login-form" method="post">
-            <div class="index__text-input">
+            <fieldset class="fieldset1">
+                <div class="index__text-input">
                 <input class="index__username" name="user" type="text" placeholder="Username">
                 <input class="index__password" name="password" type="password" placeholder="Password">
-            </div>
-            <input class="index__login-button" type="submit" value="Login!">
+                </div>
+                <input class="index__login-button" type="submit" value="Login!">
+            </fieldset>
+            <fieldset class="fieldset2">
+                <p><input name="remember" type="checkbox" data-val="true" value="true"> Remember me?</p>
+            </fieldset>
         </form>
     </main>
 {% endblock %}

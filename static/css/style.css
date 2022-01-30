@@ -252,7 +252,7 @@ body {
 
 .index__login-form{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 20%;
@@ -287,4 +287,24 @@ body {
     text-align: center;
     background-color: #182143;
     margin: 3px auto;
+}
+
+.index__form-remember{
+    color: white;
+}
+
+.fieldset1{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    border: none;
+}
+
+.fieldset2{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    border: none;
+    color: white;
 }

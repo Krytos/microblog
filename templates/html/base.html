@@ -13,10 +13,10 @@
     <header class="navbar">
         <div class="navbar__brand">
             <img class="navbar__logo" src="/static/img/logo.png" alt="Logo of the website">
-            <a href="{{ url_for("user", name=name) }}">Microblog</a>
+            <a href="{{ url_for("user") }}">Microblog</a>
         </div>
         <ul class="navbar__navigation">
-            <li class="navbar__navigation-item"><a href="{{ url_for("recent", name=name, page_count=1) }}" class="navbar__link">Recent</a></li>
+            <li class="navbar__navigation-item"><a href="{{ url_for("recent", page_count=1) }}" class="navbar__link">Recent</a></li>
             <li class="navbar__navigation-item"><a href="#" class="navbar__link">Calendar</a></li>
         </ul>
     </header>

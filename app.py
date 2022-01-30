@@ -12,22 +12,33 @@ def create_app():
     client = MongoClient(os.environ.get("MONGODB_URI"))
     app.db = client.microblog
     app.secret_key = os.environ.get("SECRET_KEY")
+    app.permanent_session_lifetime = datetime.timedelta(days=30)
 
-    @app.route("/", methods=["GET", "POST"])
+    @app.route("/login", methods=["GET", "POST"])
     def home():
         if request.method == "POST":
+            remember = request.form.get("remember")
+            if remember == "true":
+                session.permanent = True
+            else:
+                session.permanent = False
             username = request.form['user']
             password = request.form["password"]
-            session["user"] = username
+
             for user_id in app.db.login.find():
                 if user_id["username"] == username and user_id["password"] == password:
-                    return redirect(url_for("user", name=username))
-                    
-        return render_template("html/index.html")
+                    session["user"] = username
+                    return redirect(url_for("user"))
+                else:
+                    return render_template("html/index.html")
+        elif "user" in session:
+            return redirect(url_for("user"))
+        else:
+            return render_template("html/index.html")
 
-    @app.route("/<name>/", methods=["GET", "POST"])
-    def user(name):
-
+    @app.route("/user/", methods=["GET", "POST"])
+    def user():
+        name = session["user"]
         if "user" in session:
             if request.method == "POST":
                 entry_content = request.form['content']
@@ -44,12 +55,13 @@ def create_app():
                  )
                 for entry in app.db[name].find().limit(5)
             ]
-            return render_template("html/home.html", entries=entries_with_date, name=name)
+            return render_template("html/home.html", entries=entries_with_date)
         else:
             return redirect(url_for("home"))
 
-    @app.route("/<name>/recent/", methods=["GET"])
-    def recent(name):
+    @app.route("/user/recent/", methods=["GET"])
+    def recent():
+        name = session["user"]
         page = request.args.get("page")
         if page is not None:
             page = int(page)
@@ -67,7 +79,7 @@ def create_app():
              )
             for entry in app.db[name].find().skip((page - 1) * 10).limit(10 * page)
         ]
-        return render_template("html/recent.html", entries=entries_with_date, links=page_count, name=name, page=page)
+        return render_template("html/recent.html", entries=entries_with_date, links=page_count, page=page)
 
     @app.route("/logout/")
     def logout():

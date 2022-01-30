@@ -22,7 +22,7 @@
             {% if links > 1 %}
             <ul class="pages">
                 {% for link_item in range(1, links + 1) %}
-                    <li><a class="pages__item-{{ link_item }}" href="{{ url_for("recent", name=name, page=link_item) }}">{{ link_item }}</a></li>
+                    <li><a class="pages__item-{{ link_item }}" href="{{ url_for("recent", page=link_item) }}">{{ link_item }}</a></li>
                     {% if link_item != links %}
                      <span>&ensp;•&ensp;</span>
                     {% endif %}
