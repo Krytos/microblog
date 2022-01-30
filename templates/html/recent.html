@@ -4,6 +4,7 @@
     <main class="main">
         <section>
             <h1>Recent Posts</h1>
+            <a class="logout" href="{{ url_for("logout") }}">Logout!</a>
             {% for entry in entries %}
                 <article class="entry">
                     <div class="entry__div">

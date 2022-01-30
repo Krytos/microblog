@@ -60,10 +60,27 @@ body {
     color: #FACB35;
 }
 
+.logout{
+    text-decoration: none;
+    color: #5c6b70;
+    margin: auto;
+    position: absolute;
+    right: 0;
+    top: 5px;
+}
+
+.main h1{
+    display: inline;
+    max-width: 80%;
+    margin-left: 0;
+    margin-right: 30%;
+}
+
 .main {
     max-width: 450px;
     margin: 0 auto;
     padding: 0 20px;
+    position: relative;
 }
 
 .form {

@@ -68,4 +68,9 @@ def create_app():
             for entry in app.db[name].find().skip((page - 1) * 10).limit(10 * page)
         ]
         return render_template("html/recent.html", entries=entries_with_date, links=page_count, name=name, page=page)
+
+    @app.route("/logout/")
+    def logout():
+        session.pop("user", None)
+        return redirect(url_for("home"))
     return app
