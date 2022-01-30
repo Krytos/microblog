@@ -56,7 +56,7 @@ def create_app():
                  entry["date"],
                  datetime.datetime.strptime(entry["date"], "%Y-%m-%d").strftime("%d %b")
                  )
-                for entry in app.db[name].find().limit(5)
+                for entry in app.db[name].find().limit(5).sort("date", -1)
             ]
             return render_template("html/home.html", entries=entries_with_date)
         else:
@@ -80,7 +80,7 @@ def create_app():
              entry["date"],
              datetime.datetime.strptime(entry["date"], "%Y-%m-%d").strftime("%d %b")
              )
-            for entry in app.db[name].find().skip((page - 1) * 10).limit(10 * page)
+            for entry in app.db[name].find().skip((page - 1) * 10).limit(10 * page).sort("date", -1)
         ]
         return render_template("html/recent.html", entries=entries_with_date, links=page_count, page=page)
 
