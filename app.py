@@ -14,7 +14,12 @@ def create_app():
     app.secret_key = os.environ.get("SECRET_KEY")
     app.permanent_session_lifetime = datetime.timedelta(days=30)
 
-    @app.route("/login", methods=["GET", "POST"])
+
+    @app.route("/")
+    def root():
+        return redirect(url_for("home"))
+
+    @app.route("/login/", methods=["GET", "POST"])
     def home():
         if request.method == "POST":
             remember = request.form.get("remember")
@@ -22,12 +27,10 @@ def create_app():
                 session.permanent = True
             else:
                 session.permanent = False
-            username = request.form['user']
-            password = request.form["password"]
 
             for user_id in app.db.login.find():
-                if user_id["username"] == username and user_id["password"] == password:
-                    session["user"] = username
+                if user_id["username"] == request.form['user'] and user_id["password"] == request.form["password"]:
+                    session["user"] = user_id["username"]
                     return redirect(url_for("user"))
                 else:
                     return render_template("html/index.html")
