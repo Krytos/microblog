@@ -60,6 +60,11 @@ body {
     color: #FACB35;
 }
 
+.navbar__link:active{
+    text-decoration: none;
+    color: #FACB35;
+}
+
 .logout{
     text-decoration: none;
     color: #5c6b70;
@@ -229,6 +234,11 @@ body {
 
 .pages a:hover{
     color: #384E9E;
+}
+
+.pages a:active{
+    text-decoration: none;
+    color: #FACB35;
 }
 
 .index__main{
