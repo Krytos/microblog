@@ -18,7 +18,6 @@ def create_app():
             username = request.form['user']
             password = request.form["password"]
             for user_id in app.db.login.find():
-                print(user_id["username"], username, user_id["password"], password)
                 if user_id["username"] == username and user_id["password"] == password:
                     return redirect(url_for("user", name=username))
                     
@@ -52,13 +51,12 @@ def create_app():
             page = int(page)
         else:
             page = 1
-        print(page)
         count = app.db[name].count_documents({})
-        page_count = [1]
+        page_count = 1
         for x in range(count):
             # print(f"x = {x}")
             if (x + 1) % 10 == 0:
-                page_count.append((x+1) / 10)
+                page_count += ((x+1) // 10)
         entries_with_date = [
             (entry["content"],
              entry["date"],
@@ -66,12 +64,7 @@ def create_app():
              )
             for entry in app.db[name].find().skip((page - 1) * 10).limit(10 * page)
         ]
-        # print(f"count = {count}")
-        print(f"page_count = {page_count}")
-        # print(f"entries_with_date = {entries_with_date}")
-        print(f"page_count = {page_count}")
-        print(len(page_count))
-        return render_template("html/recent.html", entries=entries_with_date, links=len(page_count), name=name, page=page)
+        return render_template("html/recent.html", entries=entries_with_date, links=page_count, name=name, page=page)
 
     # @app.route("/<name>/recent/<page_count>", metho=["GET"])
     # def current_page(name, page_count):

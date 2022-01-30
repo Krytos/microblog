@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="icon" href="/static/img/logo.png" type="image/x-icon">
+    <title>{% block title %}Microblog{% endblock %}</title>
+</head>
+<body>
+    {% block header %}
+    <header class="navbar">
+        <div class="navbar__brand">
+            <img class="navbar__logo" src="/static/img/logo.png" alt="Logo of the website">
+            <a href="{{ url_for("user", name=name) }}">Microblog</a>
+        </div>
+        <ul class="navbar__navigation">
+            <li class="navbar__navigation-item"><a href="{{ url_for("recent", name=name, page_count=1) }}" class="navbar__link">Recent</a></li>
+            <li class="navbar__navigation-item"><a href="#" class="navbar__link">Calendar</a></li>
+        </ul>
+    </header>
+    {% endblock %}
+    {% block main %}
+    {% endblock %}
+    {% block footer %}
+    <footer class="footer">
+        <div class="footer__content">
+            <section class="left">
+                <a class="footer__item" href="#">Made by Kevin Meinon</a>
+                <a class="footer__item" href="#">Check out my other projects</a>
+            </section>
+            <section class="right">
+                <div class="footer__column">
+                    <a class="footer__item" href="#">Recent</a>
+                    <a class="footer__item" href="#">Calendar</a>
+                </div>
+                <div class="footer__column">
+                    <a class="footer__item" href="#">About</a>
+                    <a class="footer__item" href="#">How this was made</a>
+                </div>
+            </section>
+        </div>
+    </footer>
+    {% endblock %}
+</body>
+</html>
